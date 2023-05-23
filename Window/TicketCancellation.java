@@ -5,7 +5,8 @@
  */
 package Window;
 import java.awt.event.*;
-import javax.swing.*;   
+import javax.swing.*; 
+import java.util.StringTokenizer;  
 /**
  *
  * @author DELL
@@ -103,11 +104,20 @@ public class TicketCancellation extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(ActionEvent evt) {                                         
         // TODO add your handling code here:
-        System.out.println("Morshdy");
+        int Class = Integer.parseInt(jTextField1.getText());
+        StringTokenizer tokenizer = new StringTokenizer(jTextField2.getText(), ",");
+        while(tokenizer.hasMoreTokens())
+        {
+            System.out.println(Integer.parseInt(tokenizer.nextToken()));
+            // curr.ticketCancellation(Integer.parseInt(tokenizer.nextToken()), Class);
+        }
     }                                                
     private void jButton2ActionPerformed(ActionEvent evt) {                                         
         // TODO add your handling code here:
-        System.out.print("Ashraf");
+        UserOptions userOptions = new UserOptions();
+        setVisible(false);
+        dispose();
+        userOptions.setVisible(true);
     } 
 
     /**

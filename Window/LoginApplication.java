@@ -14,6 +14,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.EOFException;
 // import java.io.ClassNotFoundException;
 import java.io.File;
 import java.io.FileInputStream;
@@ -129,10 +130,11 @@ public class LoginApplication extends javax.swing.JFrame {
          * tmm al login button hya htakhoud mn al user name wal password wtnady function al login
          * 
          */
-        String name = nameField.getName();
-        String pass = passwordField.getName();
+        String name = nameField.getText();
+        char[] pass = passwordField.getPassword();
+        String password = new String(pass);
 
-        User currUser = login(name, pass);
+        User currUser = login(name, password);
 
         if(currUser == null)
         {
@@ -224,6 +226,12 @@ public class LoginApplication extends javax.swing.JFrame {
                 new LoginApplication().setVisible(true);
             }
         });
+    
+        
+
+        // for(User user : allUsers)
+        //     System.out.println(user);
+        
     }
 
     // Variables declaration - do not modify                     
@@ -245,72 +253,105 @@ public class LoginApplication extends javax.swing.JFrame {
         User user = null;
         try{
             File file = new File("Window\\UsersData.txt");
-            FileOutputStream fos = new FileOutputStream(file,true);
-            
-        
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(null);
-            oos.close();
-            
             FileInputStream fis = new FileInputStream(file);
             ObjectInputStream ois = new ObjectInputStream(fis);
-            
-            if((user = (User)ois.readObject()) != null)
-                allUsers.add(user);
+                        
+            allUsers.clear();
+            try{
+                while(true)
+                {
+                    user = (User)ois.readObject();
+                    allUsers.add(user);
+                }
+            }catch(EOFException e){
+                // hna khlas reached end of file f2ra koul al objects
+            }
 
             ois.close();
  
             return true;
             
         }catch(FileNotFoundException e){
-            JOptionPane.showMessageDialog(null,e + " x");
+            JOptionPane.showMessageDialog(null,e + "x");
+            return false;
+        }catch(EOFException e){
+            return true;
         }
         catch(IOException e){
-            JOptionPane.showMessageDialog(null,e + " Y");
+            JOptionPane.showMessageDialog(null,e + "y");
+            return false;
         }
         catch(ClassNotFoundException e){
-            JOptionPane.showMessageDialog(null,e + " Z");
-        } 
-        return false;
+            JOptionPane.showMessageDialog(null,e + "z");
+            return false;
+        }
     }
     
     // function will used in this window
     public User login(String name, String passcode)
     {
-        readUserFile();
-        for(User user : allUsers)
+        if(readUserFile())
         {
-            if(user.getName().equals(name) && user.getPasscode().equals(passcode))
-            return user;
+            for(User user : allUsers)
+            {
+                System.out.println(user);
+                if(user.getName().equals(name) && user.getPasscode().equals(passcode))
+                {
+                    System.out.println("User mwgood 3ady");
+                    return user;
+                }
+            }
         }
+        System.out.println("fe haga ghlt");
         return null;
     }    
 
+    public static boolean writeUserInFile(User addUser)
+    {
+        allUsers.add(addUser);
+        try{
+            File file = new File("Window\\UsersData.txt");
+            FileOutputStream fos = new FileOutputStream(file);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            
+            for(User user : allUsers)
+                oos.writeObject(user);
+            
+            oos.flush();
+            oos.close();
+
+        }catch(FileNotFoundException e){
+            System.out.println(e + "AA");
+        }catch(IOException e){
+            System.out.println(e + "BB");
+        }
+            
+        return true;
+    }
     public static boolean signUp(String name, String passcode)
     {
-        readUserFile();
-        try
+        if(readUserFile())
         {
-            // if(allUsers.size()>0)
-            // {
+            for(User user : allUsers)
+                System.out.println(user);
+            try
+            {
                 for(User user : allUsers)
-                if(user.getName() == name && user.getPasscode() == passcode)
-                return false;
+                    if(user.getName() == name && user.getPasscode() == passcode)
+                        return false;
                 
-                writeUserInFile();
-                allUsers.add(new User(name, passcode));
-            // }
-            // else
-            // allUsers.add(new User(name, passcode));
-        }catch(Exception e)
-        {
-            JOptionPane.showMessageDialog(null,e + " W");
+                writeUserInFile(new User(name, passcode)); // lma arg3 mn alsala hkmlo
+            }catch(Exception e)
+            {
+                JOptionPane.showMessageDialog(null,e);
+            }
+            
+            return true;
         }
+        else
+           System.out.println("Have a problem bs msh 3arf eh");
         
-        
-        
-
-        return true;
+        return false;
     }
 
 }

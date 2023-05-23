@@ -8,15 +8,14 @@
  * @author DELL
  */
 package Window;
-import java.lang.String;
+
+import java.util.StringTokenizer;
 
 public class MakeReservation extends javax.swing.JFrame {
-
+    User curr = new User();
     /**
-     * 
      * Creates new form MakeReservation
      */
-    User curr  = new User();
     public MakeReservation() {
         initComponents();
     }
@@ -32,47 +31,55 @@ public class MakeReservation extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        ClassNumbertf = new javax.swing.JTextField();
+        numberOfSeatstf = new javax.swing.JTextField();
+        OkButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        SeatsAvailable = new javax.swing.JTextArea();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-
+        IDsOfSeatstf = new javax.swing.JTextField();
+        MakeReservationButton = new javax.swing.JButton();
+        GoBackButton = new javax.swing.JButton();
+        SeatsAvailable.setEditable(false);
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("How many seats do you want to reserve");
 
         jLabel2.setText("What class do you want to reserve in");
-
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        ClassNumbertf.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                ClassNumbertfActionPerformed(evt);
             }
         });
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        OkButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                OkButtonActionPerformed(evt);
             }
         });
+        MakeReservationButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MakeReservationButtonActionPerformed(evt);
+            }
+        });
+        GoBackButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GoBackButtonActionPerformed(evt);
+            }
+        });
+        OkButton.setText("Ok");
 
-        jButton1.setText("Ok");
-        
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        SeatsAvailable.setColumns(20);
+        SeatsAvailable.setRows(5);
+        jScrollPane1.setViewportView(SeatsAvailable);
 
         jLabel3.setText("Seats");
 
         jLabel4.setText("Enter The ID(s) of the seats that you want separated by comma");
 
-        jButton2.setText("Make Reservation");
+        MakeReservationButton.setText("Make Reservation");
 
-        jButton3.setText("Go back");
+        GoBackButton.setText("Go back");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -84,9 +91,9 @@ public class MakeReservation extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(27, 27, 27)
-                        .addComponent(jTextField1, 50, 70, 90)
+                        .addComponent(ClassNumbertf, 50, 70, 90)
                         .addGap(35, 35, 35)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(OkButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(jLabel3)
@@ -97,17 +104,17 @@ public class MakeReservation extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(numberOfSeatstf, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jTextField3, 50, 100, 140)
+                        .addComponent(IDsOfSeatstf, 50, 100, 140)
                         .addGap(72, 72, 72)))
                 .addContainerGap(46, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(138, 138, 138)
-                .addComponent(jButton2)
+                .addComponent(MakeReservationButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton3)
+                .addComponent(GoBackButton)
                 .addGap(30, 30, 30))
         );
         layout.setVerticalGroup(
@@ -116,8 +123,8 @@ public class MakeReservation extends javax.swing.JFrame {
                 .addGap(47, 47, 47)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(ClassNumbertf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(OkButton))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -125,28 +132,53 @@ public class MakeReservation extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(numberOfSeatstf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(IDsOfSeatstf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(MakeReservationButton)
+                    .addComponent(GoBackButton))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>                        
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {                                            
+    private void ClassNumbertfActionPerformed(java.awt.event.ActionEvent evt) {                                            
         // TODO add your handling code here:
     }                                           
-    private int jButton1ActionPerformed(java.awt.event.ActionEvent evt)
+    private void OkButtonActionPerformed(java.awt.event.ActionEvent evt)
     {
-        int Class = Integer.parseInt(jTextField1.getText());
-        return Class;
+        int Class = Integer.parseInt(ClassNumbertf.getText());
+        // User.resetTheatreReservations();
+        // System.out.println(Class);
+
+        // System.out.print(User.printCurrentSeats(Class)); // 3mltlha comment 3shan kant gyba error
+        // User.printCurrentSeats(Class);
+        // ;
+
+        // System.out.println(User.printCurrentSeats(Class));
+        // SeatsAvailable.setText("User.printCurrentSeats(Class)");
+    }
+    private void MakeReservationButtonActionPerformed(java.awt.event.ActionEvent evt)
+    {
+        User.resetTheatreReservations();
+        StringTokenizer tokenizer = new StringTokenizer(IDsOfSeatstf.getText(), ",");
+        while(tokenizer.hasMoreTokens())
+        {
+            curr.ticketReservation(Integer.parseInt(tokenizer.nextToken()), 
+                                Integer.parseInt(ClassNumbertf.getText()));
+        }
+    }
+    private void GoBackButtonActionPerformed(java.awt.event.ActionEvent evt)
+    {
+        UserOptions userOptions = new UserOptions();
+        setVisible(false);
+        dispose();
+        userOptions.setVisible(true);
     }
     /**
      * @param args the command line arguments
@@ -180,23 +212,22 @@ public class MakeReservation extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new MakeReservation().setVisible(true);
-                
             }
         });
     }
 
     // Variables declaration - do not modify                     
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton OkButton;
+    private javax.swing.JButton MakeReservationButton;
+    private javax.swing.JButton GoBackButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextArea SeatsAvailable;
+    private javax.swing.JTextField ClassNumbertf;
+    private javax.swing.JTextField numberOfSeatstf;
+    private javax.swing.JTextField IDsOfSeatstf;
     // End of variables declaration                   
 }
