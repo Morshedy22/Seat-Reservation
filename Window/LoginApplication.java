@@ -1,15 +1,31 @@
+
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package Window;
-import javax.swing.*;
+ 
+import javax.lang.model.util.ElementScanner14;
+// import Window.User;
+import javax.swing.*; // ana 3arf .* tb2a bate2a bs b3mlha
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+// import java.io.ClassNotFoundException;
+import java.io.File;
+import java.io.FileInputStream;
+import java.util.*;
+
 /**
  *
  * @author DELL
  */
 public class LoginApplication extends javax.swing.JFrame {
 
+    User curr = null;
     /**
      * Creates new form LoginApplication
      */
@@ -30,7 +46,7 @@ public class LoginApplication extends javax.swing.JFrame {
 
         jLabel1 = new JLabel();
         loginButton = new JButton(); 
-        cancelButton = new JButton();
+        signUpButton = new JButton();
         jLabel2 = new JLabel();
         jLabel3 = new JLabel();
         nameField = new JTextField();
@@ -48,23 +64,16 @@ public class LoginApplication extends javax.swing.JFrame {
             }
         });
 
-        cancelButton.setText("Sign Up");
-        cancelButton.addActionListener(new java.awt.event.ActionListener() {
+        signUpButton.setText("Sign Up");
+        signUpButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cancelButtonActionPerformed(evt);
+                signUpButtonActionPerformed(evt);
             }
         });
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel2.setText("Name");
-
         jLabel3.setText("Password");
-
-        nameField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nameFieldActionPerformed(evt);
-            }
-        });
 
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -88,7 +97,7 @@ public class LoginApplication extends javax.swing.JFrame {
                 .addGap(112, 112, 112)
                 .addComponent(loginButton)
                 .addGap(74, 74, 74)
-                .addComponent(cancelButton)
+                .addComponent(signUpButton)
                 .addContainerGap(100, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -107,7 +116,7 @@ public class LoginApplication extends javax.swing.JFrame {
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(loginButton)
-                    .addComponent(cancelButton))
+                    .addComponent(signUpButton))
                 .addGap(67, 67, 67))
         );
 
@@ -117,21 +126,70 @@ public class LoginApplication extends javax.swing.JFrame {
     // doul ahm atneen 3ndna
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {                                         
         /* 
-         * tmm al ok button hya htakhoud mn al user name wal id wtrou7 ttcheck hwa mwgood wla la
-         * tmm yb2a 3ndna hgteen lw hwa mwgood hykhoush tb lw msh mwgood hntb3lo rsala bt2olo your 
+         * tmm al login button hya htakhoud mn al user name wal password wtnady function al login
          * 
          */
-        System.out.println("LoginButton");
-    }     
-    private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {                                         
-       
-        System.out.println("SignUPButton");
-    }                                     
+        String name = nameField.getName();
+        String pass = passwordField.getName();
 
-    private void nameFieldActionPerformed(java.awt.event.ActionEvent evt) {                                            
+        User currUser = login(name, pass);
+
+        if(currUser == null)
+        {
+            try
+            {
+                JOptionPane.showMessageDialog(null,"This user does not exist!");
+            }catch(Exception e)
+            {
+                JOptionPane.showMessageDialog(null,e);
+            }
+        }
+        else
+        {
+            UserOptions UserOptions = new UserOptions();
+            setVisible(false);
+            dispose();
+            UserOptions.setVisible(true);
+        }
+    }     
+    
+    private void signUpButtonActionPerformed(java.awt.event.ActionEvent evt) {                                         
+ 
+        String name = nameField.getText();
+        char[] pass = passwordField.getPassword();
+        String password = new String(pass);
+
+        System.out.println(name + " " + password);
+
+        boolean ok = signUp(name, password);
+
+        if(ok)
+        {
+            try
+            {
+                JOptionPane.showMessageDialog(null,"This User Has Been Added Successfully");
+                nameField.setText("");
+                passwordField.setText("");
+            }catch(Exception e)
+            {
+                JOptionPane.showMessageDialog(null,e);
+            }
+        }
+        else
+        {
+            try
+            {
+                JOptionPane.showMessageDialog(null,"This User Already Exists");
+                nameField.setText("");
+                passwordField.setText("");
+            }catch(Exception e)
+            {
+                JOptionPane.showMessageDialog(null,e);
+            }
+        }      
         
-        
-    }                                           
+    }                                     
+                                                
 
     /**
      * @param args the command line arguments
@@ -170,11 +228,89 @@ public class LoginApplication extends javax.swing.JFrame {
 
     // Variables declaration - do not modify                     
     private JButton loginButton; // ok button
-    private JButton cancelButton; // cancel button
+    private JButton signUpButton; // cancel button
     private JLabel jLabel1;
     private JLabel jLabel2;
     private JLabel jLabel3;
     private JPasswordField passwordField;
     private JTextField nameField;
-    // End of variables declaration                   
+    // End of variables declaration  
+    
+    // variables decleration out of gui
+    private static ArrayList<User> allUsers = new ArrayList<>();
+
+    // function to read all user from file and put it in array allUsers
+    public static boolean readUserFile()
+    {
+        User user = null;
+        try{
+            File file = new File("Window\\UsersData.txt");
+            FileOutputStream fos = new FileOutputStream(file,true);
+            
+        
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(null);
+            oos.close();
+            
+            FileInputStream fis = new FileInputStream(file);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            
+            if((user = (User)ois.readObject()) != null)
+                allUsers.add(user);
+
+            ois.close();
+ 
+            return true;
+            
+        }catch(FileNotFoundException e){
+            JOptionPane.showMessageDialog(null,e + " x");
+        }
+        catch(IOException e){
+            JOptionPane.showMessageDialog(null,e + " Y");
+        }
+        catch(ClassNotFoundException e){
+            JOptionPane.showMessageDialog(null,e + " Z");
+        } 
+        return false;
+    }
+    
+    // function will used in this window
+    public User login(String name, String passcode)
+    {
+        readUserFile();
+        for(User user : allUsers)
+        {
+            if(user.getName().equals(name) && user.getPasscode().equals(passcode))
+            return user;
+        }
+        return null;
+    }    
+
+    public static boolean signUp(String name, String passcode)
+    {
+        readUserFile();
+        try
+        {
+            // if(allUsers.size()>0)
+            // {
+                for(User user : allUsers)
+                if(user.getName() == name && user.getPasscode() == passcode)
+                return false;
+                
+                writeUserInFile();
+                allUsers.add(new User(name, passcode));
+            // }
+            // else
+            // allUsers.add(new User(name, passcode));
+        }catch(Exception e)
+        {
+            JOptionPane.showMessageDialog(null,e + " W");
+        }
+        
+        
+        
+
+        return true;
+    }
+
 }

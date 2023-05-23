@@ -8,11 +8,15 @@
  * @author DELL
  */
 package Window;
+import java.lang.String;
+
 public class MakeReservation extends javax.swing.JFrame {
 
     /**
+     * 
      * Creates new form MakeReservation
      */
+    User curr  = new User();
     public MakeReservation() {
         initComponents();
     }
@@ -50,9 +54,14 @@ public class MakeReservation extends javax.swing.JFrame {
                 jTextField1ActionPerformed(evt);
             }
         });
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton1.setText("Ok");
-
+        
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
@@ -134,7 +143,11 @@ public class MakeReservation extends javax.swing.JFrame {
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {                                            
         // TODO add your handling code here:
     }                                           
-
+    private int jButton1ActionPerformed(java.awt.event.ActionEvent evt)
+    {
+        int Class = Integer.parseInt(jTextField1.getText());
+        return Class;
+    }
     /**
      * @param args the command line arguments
      */
@@ -167,6 +180,7 @@ public class MakeReservation extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new MakeReservation().setVisible(true);
+                
             }
         });
     }

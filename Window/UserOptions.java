@@ -111,27 +111,38 @@ public class UserOptions extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
         // TODO add your handling code here:
-        System.out.println("Make Reservation");
+        
+        MakeReservation makeReservation = new MakeReservation();
+        setVisible(false);
+        dispose();
+        makeReservation.setVisible(true);
     }                                        
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                         
         // TODO add your handling code here:
-        System.out.println("Cancel Reservation");
+        TicketCancellation ticketCancellation = new TicketCancellation();
+        setVisible(false);
+        dispose();
+        ticketCancellation.setVisible(true);
     }                                        
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {                                         
         // TODO add your handling code here:
-        System.out.println("Reset All Seats");
+        User.resetTheatreReservations();
+        
     }  
     
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {                                         
         // TODO add your handling code here:
-        System.out.println("Exit");
+        System.exit(0);
     }                                        
     
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {                                         
         // TODO add your handling code here:
-        System.out.println("Go Back");
+        LoginApplication loginApplication = new LoginApplication();
+        setVisible(false);
+        dispose();
+        loginApplication.setVisible(true);
     } 
     /**
      * @param args the command line arguments
