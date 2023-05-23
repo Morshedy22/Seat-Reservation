@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package Window;
-import javax.swing.*
+import javax.swing.*;
 /**
  *
  * @author DELL
@@ -29,29 +29,29 @@ public class LoginApplication extends javax.swing.JFrame {
         // Function to initialize all components will used in this window
 
         jLabel1 = new JLabel();
-        jButton1 = new JButton();
-        jButton2 = new JButton();
+        loginButton = new JButton(); 
+        cancelButton = new JButton();
         jLabel2 = new JLabel();
         jLabel3 = new JLabel();
-        jTextField1 = new JTextField();
-        jPasswordField1 = new JPasswordField();
+        nameField = new JTextField();
+        passwordField = new JPasswordField();
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setText("Login/SignUp");
 
-        jButton1.setText("Ok");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        loginButton.setText("Login");
+        loginButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                loginButtonActionPerformed(evt); // de alfunction al ht run 3shan t3ml al action
             }
         });
 
-        jButton2.setText("Clear");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        cancelButton.setText("Sign Up");
+        cancelButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                cancelButtonActionPerformed(evt);
             }
         });
 
@@ -60,9 +60,9 @@ public class LoginApplication extends javax.swing.JFrame {
 
         jLabel3.setText("Password");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        nameField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                nameFieldActionPerformed(evt);
             }
         });
 
@@ -76,19 +76,19 @@ public class LoginApplication extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPasswordField1, GroupLayout.PREFERRED_SIZE, 185, GroupLayout.PREFERRED_SIZE))
+                        .addComponent(passwordField, GroupLayout.PREFERRED_SIZE, 185, GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
-                            .addComponent(jTextField1, GroupLayout.PREFERRED_SIZE, 188, GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(nameField, GroupLayout.PREFERRED_SIZE, 188, GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(112, 112, 112)
-                .addComponent(jButton1)
+                .addComponent(loginButton)
                 .addGap(74, 74, 74)
-                .addComponent(jButton2)
+                .addComponent(cancelButton)
                 .addContainerGap(100, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -99,15 +99,15 @@ public class LoginApplication extends javax.swing.JFrame {
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                    .addComponent(nameField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                 .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jPasswordField1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                    .addComponent(passwordField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(loginButton)
+                    .addComponent(cancelButton))
                 .addGap(67, 67, 67))
         );
 
@@ -115,17 +115,21 @@ public class LoginApplication extends javax.swing.JFrame {
     }// </editor-fold>                        
 
     // doul ahm atneen 3ndna
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        // TODO add your handling code here:
-        System.out.println("Morshdy");
+    private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        /* 
+         * tmm al ok button hya htakhoud mn al user name wal id wtrou7 ttcheck hwa mwgood wla la
+         * tmm yb2a 3ndna hgteen lw hwa mwgood hykhoush tb lw msh mwgood hntb3lo rsala bt2olo your 
+         * 
+         */
+        System.out.println("LoginButton");
     }     
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        // TODO add your handling code here:
-        System.out.println("Ashraf");
+    private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {                                         
+       
+        System.out.println("SignUPButton");
     }                                     
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {                                            
-        // TODO add your handling code here:
+    private void nameFieldActionPerformed(java.awt.event.ActionEvent evt) {                                            
+        
         
     }                                           
 
@@ -165,12 +169,12 @@ public class LoginApplication extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify                     
-    private JButton jButton1; // ok button
-    private JButton jButton2; // cancel button
+    private JButton loginButton; // ok button
+    private JButton cancelButton; // cancel button
     private JLabel jLabel1;
     private JLabel jLabel2;
     private JLabel jLabel3;
-    private JPasswordField jPasswordField1;
-    private JTextField jTextField1;
+    private JPasswordField passwordField;
+    private JTextField nameField;
     // End of variables declaration                   
 }
