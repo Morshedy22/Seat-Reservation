@@ -83,7 +83,7 @@ public class TicketCancellation extends javax.swing.JFrame {
         );
 
         pack();
-    }// </editor-fold>                        
+    }                       
 
 
     private void jButton1ActionPerformed(ActionEvent evt) {                                         
@@ -93,7 +93,7 @@ public class TicketCancellation extends javax.swing.JFrame {
         while(tokenizer.hasMoreTokens())
         {
             System.out.println(Integer.parseInt(tokenizer.nextToken()));
-            // curr.ticketCancellation(Integer.parseInt(tokenizer.nextToken()), Class);
+            activeUser.ticketCancellation(Integer.parseInt(tokenizer.nextToken()), Class);
         }
     }                                                
     private void jButton2ActionPerformed(ActionEvent evt) {                                         
