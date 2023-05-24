@@ -21,7 +21,7 @@ public class Main extends JFrame
         } catch (UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(LoginApplication.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
+        
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {

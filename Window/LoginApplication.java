@@ -94,17 +94,14 @@ public class LoginApplication extends javax.swing.JFrame {
 
     // doul ahm atneen 3ndna
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        /* 
-         * tmm al login button hya htakhoud mn al user name wal password wtnady function al login
-         * 
-         */
+
         String name = nameField.getText();
         char[] pass = passwordField.getPassword();
         String password = new String(pass);
 
-        User currUser = login(name, password);
+        User activeUser = login(name, password);
 
-        if(currUser == null)
+        if(activeUser == null)
         {
             try
             {
@@ -116,7 +113,7 @@ public class LoginApplication extends javax.swing.JFrame {
         }
         else
         {
-            UserOptions UserOptions = new UserOptions();
+            UserOptions UserOptions = new UserOptions(activeUser);
             setVisible(false);
             dispose();
             UserOptions.setVisible(true);
