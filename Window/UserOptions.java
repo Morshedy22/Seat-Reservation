@@ -110,7 +110,7 @@ public class UserOptions extends javax.swing.JFrame {
     }                                        
 
     private void cancelReservationButtonActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        TicketCancellation ticketCancellation = new TicketCancellation();
+        TicketCancellation ticketCancellation = new TicketCancellation(activeUser);
         setVisible(false);
         dispose();
         ticketCancellation.setVisible(true);
