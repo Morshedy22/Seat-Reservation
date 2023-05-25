@@ -1,11 +1,11 @@
 import javax.swing.*;
 import Window.LoginApplication;
+import Window.User;
 
 public class Main extends JFrame
 {
-    public static void init()
-    {
-        return;
+    public static void init(){
+        User.resetTheatreReservations();
     }
     public static void main(String args[])
     { 
@@ -37,9 +37,10 @@ public class Main extends JFrame
         });
 
         // System.out.println("***********************************************");
-        // LoginApplication.updateFile();
+        LoginApplication.updateUserFile();
+        User.updateSeats();
 
-        // LoginApplication.printAllUsers();
+        LoginApplication.printAllUsers();
     }
 
     

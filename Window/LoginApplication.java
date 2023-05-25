@@ -280,7 +280,7 @@ public class LoginApplication extends javax.swing.JFrame {
            
         return false;
     }
-    public static boolean updateFile()
+    public static boolean updateUserFile()
     {
         try{
             File file = new File("Window\\UsersData.txt");

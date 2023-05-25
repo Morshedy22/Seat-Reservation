@@ -28,56 +28,7 @@ public class User implements Serializable
     public User(String name, String passcode) {
         this.name = name;
         this.passcode = passcode;
-        if(cnt==0){
-            resetTheatreReservations();
-            try{
-                FileWriter fw1 = new FileWriter(new File("storeSFC.txt")); // strore steats
-                PrintWriter pw1 = new PrintWriter(fw1);
-                
-                for(char ch : seatsFirstClass)
-                    {pw1.write(ch); pw1.flush();}
-                pw1.println();
-                for(char ch : seatsSecondClass)
-                    {pw1.write(ch); pw1.flush();}
-                pw1.println();
-                for(char ch : seatsThirdClass)
-                    {pw1.write(ch); pw1.flush();}
-                pw1.println();
-                
-
-            }catch(FileNotFoundException e){
-                System.out.println(e);
-            }catch(IOException e){
-                System.out.println(e);
-            }
-        }
-        else{
-            try{
-            
-                Scanner sc1 = new Scanner(new File("storeSeats.txt"));
-                int seats = 0;
-                while(sc1.hasNextLine()){
-                    seats++;
-                    String s = sc1.nextLine();
-                    if(seats == 1)
-                    {
-                        for(int i=0; i<s.length(); i++)
-                            seatsFirstClass[i] = s.charAt(i);
-                    }else if(seats == 2){
-                        for(int i=0; i<s.length(); i++)
-                            seatsSecondClass[i] = s.charAt(i);
-                    }else if(seats == 3){
-                        for(int i=0; i<s.length(); i++)
-                            seatsThirdClass[i] = s.charAt(i);
-                    }
-                }
-
-                sc1.close();
-            }catch(FileNotFoundException e){
-                System.out.println(e);
-            }
-        }
-        cnt++;
+        
     }
     
     public void setName(String name) {
@@ -99,8 +50,7 @@ public class User implements Serializable
     }
    
     
-    public void reservedSeats()
-    {
+    public void reservedSeats(){
         System.out.print("Class 1: ");
         for(Integer i : reservedSeatsInFirstClass)
             System.out.print(i+" ");
@@ -120,8 +70,7 @@ public class User implements Serializable
         System.out.println();
     }
     
-    public void ticketReservation(int idx, int Class)
-    {
+    public void ticketReservation(int idx, int Class){
 
         if (Class == 1)
         {
@@ -163,8 +112,7 @@ public class User implements Serializable
         }
 
     }
-    public void ticketCancellation(int idx, int Class)
-    {
+    public void ticketCancellation(int idx, int Class){
         if (Class == 1)
         {
             int flag = 0;
@@ -237,17 +185,34 @@ public class User implements Serializable
         }
     }
 
-    public static void resetTheatreReservations()
-    {
+    public static void resetTheatreReservations(){
         for(int i = 0; i < 25; i++)
             seatsFirstClass[i] = 'O';
         for(int i = 0; i < 45; i++)
             seatsSecondClass[i] = 'O';
         for(int i = 0; i < 55; i++)
             seatsThirdClass[i] = 'O';
+        
+        try{
+            FileWriter fw1 = new FileWriter(new File("storeSFC.txt")); // strore steats
+            PrintWriter pw1 = new PrintWriter(fw1);
+            
+            for(char ch : seatsFirstClass)
+                {pw1.write(ch); pw1.flush();}
+            pw1.println();
+            for(char ch : seatsSecondClass)
+                {pw1.write(ch); pw1.flush();}
+            pw1.println();
+            for(char ch : seatsThirdClass)
+                {pw1.write(ch); pw1.flush();}
+            pw1.println();
+        }catch(FileNotFoundException e){
+            System.out.println(e);
+        }catch(IOException e){
+            System.out.println(e);
+        }
     }
-    public static String printAvailableSeats(int Class)
-    {
+    public static String printAvailableSeats(int Class){
         if (Class == 1)
         {
             String seats = printSeatsInFirstClass();
@@ -267,8 +232,7 @@ public class User implements Serializable
             return "Please write a valid number";
         }
     }
-    public static String printSeatsInFirstClass()
-    {
+    public static String printSeatsInFirstClass(){
         String seats = "";
         for(int i = 0; i < 20; i++)
         {
@@ -278,8 +242,7 @@ public class User implements Serializable
         }
         return seats;
     }
-    public static String printSeatsInSecondClass()
-    {
+    public static String printSeatsInSecondClass(){
         String seats = "";
         for(int i = 0; i < 40; i++)
         {
@@ -289,8 +252,7 @@ public class User implements Serializable
         }
         return seats;
     }
-    public static String printSeatsInThirdClass()
-    {
+    public static String printSeatsInThirdClass(){
         String seats = "";
         for(int i = 0; i < 50; i++)
         {
@@ -300,6 +262,28 @@ public class User implements Serializable
         }
         return seats;
     }
+    public static void updateSeats(){
+        try{
+            FileWriter fw1 = new FileWriter(new File("storeSFC.txt"));
+            PrintWriter pw1 = new PrintWriter(fw1);
+            
+            for(char ch : seatsFirstClass)
+                {pw1.write(ch); pw1.flush();}
+            pw1.println();
+            for(char ch : seatsSecondClass)
+                {pw1.write(ch); pw1.flush();}
+            pw1.println();
+            for(char ch : seatsThirdClass)
+                {pw1.write(ch); pw1.flush();}
+            pw1.println();
+        }catch(FileNotFoundException e){
+            System.out.println(e);
+        }catch(IOException e){
+            System.out.println(e);
+        }
+    }
+
+
     @Override
     public String toString() {
         return "User [name=" + name + ", Password=" + passcode + ", totalAmountPaid=" + totalAmountPaid + "]";
