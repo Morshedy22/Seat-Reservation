@@ -3,8 +3,14 @@ import Window.LoginApplication;
 
 public class Main extends JFrame
 {
-    public static void main(String args[])
+    public static void init()
     {
+        return;
+    }
+    public static void main(String args[])
+    { 
+
+        init();
         try {
             for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -35,7 +41,7 @@ public class Main extends JFrame
 
         // LoginApplication.printAllUsers();
     }
+
+    
 }
-/* malak 1212
- * morshdy 2222
- */
+
