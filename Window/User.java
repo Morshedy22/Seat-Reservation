@@ -1,6 +1,13 @@
 package Window;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Scanner;
+
 
 public class User implements Serializable
 {
@@ -11,6 +18,7 @@ public class User implements Serializable
     private ArrayList<Integer> reservedSeatsInSecondClass = new ArrayList<>();    
     private ArrayList<Integer> reservedSeatsInThirdClass = new ArrayList<>();    
     
+    static int cnt = 0; // da 3shan a7l seats anha init mra w7da m3 awl user hwa hl m3fn bs mfesh w2t
     static char[] seatsFirstClass = new char[25]; // from 1 to 20 // wmzwd mn 3ndy al memory bt3ty f br7ty
     static char[] seatsSecondClass = new char[45]; // from 1 to 40
     static char[] seatsThirdClass = new char[55]; // from 1 to 50
@@ -20,6 +28,56 @@ public class User implements Serializable
     public User(String name, String passcode) {
         this.name = name;
         this.passcode = passcode;
+        if(cnt==0){
+            resetTheatreReservations();
+            try{
+                FileWriter fw1 = new FileWriter(new File("storeSFC.txt")); // strore steats
+                PrintWriter pw1 = new PrintWriter(fw1);
+                
+                for(char ch : seatsFirstClass)
+                    {pw1.write(ch); pw1.flush();}
+                pw1.println();
+                for(char ch : seatsSecondClass)
+                    {pw1.write(ch); pw1.flush();}
+                pw1.println();
+                for(char ch : seatsThirdClass)
+                    {pw1.write(ch); pw1.flush();}
+                pw1.println();
+                
+
+            }catch(FileNotFoundException e){
+                System.out.println(e);
+            }catch(IOException e){
+                System.out.println(e);
+            }
+        }
+        else{
+            try{
+            
+                Scanner sc1 = new Scanner(new File("storeSeats.txt"));
+                int seats = 0;
+                while(sc1.hasNextLine()){
+                    seats++;
+                    String s = sc1.nextLine();
+                    if(seats == 1)
+                    {
+                        for(int i=0; i<s.length(); i++)
+                            seatsFirstClass[i] = s.charAt(i);
+                    }else if(seats == 2){
+                        for(int i=0; i<s.length(); i++)
+                            seatsSecondClass[i] = s.charAt(i);
+                    }else if(seats == 3){
+                        for(int i=0; i<s.length(); i++)
+                            seatsThirdClass[i] = s.charAt(i);
+                    }
+                }
+
+                sc1.close();
+            }catch(FileNotFoundException e){
+                System.out.println(e);
+            }
+        }
+        cnt++;
     }
     
     public void setName(String name) {
@@ -185,7 +243,7 @@ public class User implements Serializable
             seatsFirstClass[i] = 'O';
         for(int i = 0; i < 45; i++)
             seatsSecondClass[i] = 'O';
-        for(int i = 0; i < 50; i++)
+        for(int i = 0; i < 55; i++)
             seatsThirdClass[i] = 'O';
     }
     public static String printAvailableSeats(int Class)
@@ -212,7 +270,7 @@ public class User implements Serializable
     public static String printSeatsInFirstClass()
     {
         String seats = "";
-        for(int i = 0; i < 25; i++)
+        for(int i = 0; i < 20; i++)
         {
             seats+= (i+1) + "-" + seatsFirstClass[i] + " ";
             if (i % 5 == 0 && i!=0)
@@ -223,10 +281,10 @@ public class User implements Serializable
     public static String printSeatsInSecondClass()
     {
         String seats = "";
-        for(int i = 0; i < 45; i++)
+        for(int i = 0; i < 40; i++)
         {
             seats+= (i+1) + "-" + seatsSecondClass[i]+ " ";
-            if (i % 5 == 0 && i!=0)
+            if (i % 8 == 0 && i!=0)
                 seats+="\n";
         }
         return seats;
@@ -234,17 +292,17 @@ public class User implements Serializable
     public static String printSeatsInThirdClass()
     {
         String seats = "";
-        for(int i = 0; i < 55; i++)
+        for(int i = 0; i < 50; i++)
         {
             seats+= (i+1) + "-" + seatsThirdClass[i]+ " ";
-            if (i % 5 == 0 && i!=0)
+            if (i % 10 == 0 && i!=0)
                 seats+="\n";
         }
         return seats;
     }
     @Override
     public String toString() {
-        return "User [name=" + name + ", Password" + passcode + ", totalAmountPaid=" + totalAmountPaid + "]";
+        return "User [name=" + name + ", Password=" + passcode + ", totalAmountPaid=" + totalAmountPaid + "]";
     }
     
     

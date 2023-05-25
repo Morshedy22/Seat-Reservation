@@ -29,5 +29,13 @@ public class Main extends JFrame
                 new LoginApplication().setVisible(true);
             }
         });
+
+        // System.out.println("***********************************************");
+        // LoginApplication.updateFile();
+
+        // LoginApplication.printAllUsers();
     }
 }
+/* malak 1212
+ * morshdy 2222
+ */

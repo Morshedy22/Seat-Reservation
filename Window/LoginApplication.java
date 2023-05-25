@@ -126,7 +126,7 @@ public class LoginApplication extends javax.swing.JFrame {
         char[] pass = passwordField.getPassword();
         String password = new String(pass);
 
-        System.out.println(name + " " + password);
+        // System.out.println(name + " " + password);
 
         boolean ok = signUp(name, password);
 
@@ -146,7 +146,10 @@ public class LoginApplication extends javax.swing.JFrame {
         {
             try
             {
-                JOptionPane.showMessageDialog(null,"This User Already Exists");
+                if(name.equals("") || password.equals(""))
+                    JOptionPane.showMessageDialog(null,"lw sm7t dkhl haga mtsbhash fadya");
+                else
+                    JOptionPane.showMessageDialog(null,"This User Already Exists");
                 nameField.setText("");
                 passwordField.setText("");
             }catch(Exception e)
@@ -188,9 +191,7 @@ public class LoginApplication extends javax.swing.JFrame {
                     user = (User)ois.readObject();
                     allUsers.add(user);
                 }
-            }catch(EOFException e){
-                // hna khlas reached end of file f2ra koul al objects
-            }
+            }catch(EOFException e){}// hna khlas reached end of file f2ra koul al objects
 
             ois.close();
  
@@ -259,20 +260,24 @@ public class LoginApplication extends javax.swing.JFrame {
             try
             {
                 for(User user : allUsers)
-                    if(user.getName() == name && user.getPasscode() == passcode)
+                    if(user.getName().equals(name) && user.getPasscode().equals(passcode))
                         return false;
+                        
+                if(name.equals( "") || passcode.equals(""))
+                    return false;
                 
-                writeUserInFile(new User(name, passcode)); // lma arg3 mn alsala hkmlo
+                    writeUserInFile(new User(name, passcode)); // lma arg3 mn alsala hkmlo
             }catch(Exception e)
             {
                 JOptionPane.showMessageDialog(null,e);
+                return false;
             }
             
             return true;
         }
         else
            System.out.println("Have a problem bs msh 3arf eh");
-        
+           
         return false;
     }
     public static boolean updateFile()
@@ -296,9 +301,14 @@ public class LoginApplication extends javax.swing.JFrame {
         }catch(IOException e){
             System.out.println(e);
             return false;
-        }
-        
-        
+        }      
+    }
+
+    public static void printAllUsers()
+    {
+        readUserFile();
+        for(User user : allUsers)
+            System.out.println(user);
     }
 
 }

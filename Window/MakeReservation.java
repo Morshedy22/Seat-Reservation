@@ -31,11 +31,7 @@ public class MakeReservation extends javax.swing.JFrame {
         jLabel1.setText("How many seats do you want to reserve");
 
         jLabel2.setText("What class do you want to reserve in");
-        ClassNumbertf.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ClassNumbertfActionPerformed(evt);
-            }
-        });
+
         OkButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 OkButtonActionPerformed(evt);
@@ -131,24 +127,17 @@ public class MakeReservation extends javax.swing.JFrame {
         pack();
     }// </editor-fold>                        
 
-    private void ClassNumbertfActionPerformed(java.awt.event.ActionEvent evt) {                                            
-        
-    }                                           
+                                      
     private void OkButtonActionPerformed(java.awt.event.ActionEvent evt){
         Integer Class = Integer.parseInt(ClassNumbertf.getText());
-        // User.resetTheatreReservations();
-        // System.out.println(Class);
-
-        // System.out.print(User.printactiveUserentSeats(Class)); // 3mltlha comment 3shan kant gyba error
-        // User.printactiveUserentSeats(Class);
-        // ;
-
-        // System.out.println(User.printactiveUserentSeats(Class));
         String str = User.printAvailableSeats(Class);
         SeatsAvailable.setText(str);
     }
     private void MakeReservationButtonActionPerformed(java.awt.event.ActionEvent evt){
-        // User.resetTheatreReservations();
+
+        try
+        {
+
         int initialAmount = activeUser.getTotalAmountPaid();
         StringTokenizer tokenizer = new StringTokenizer(IDsOfSeatstf.getText(), ",");
         while(tokenizer.hasMoreTokens())
@@ -158,6 +147,13 @@ public class MakeReservation extends javax.swing.JFrame {
         }
         JOptionPane.showMessageDialog(null, "This user should spend "+ 
              (activeUser.getTotalAmountPaid() - initialAmount )+ "$");
+        }catch(Exception e){
+            System.out.println(e);
+        }
+        
+        Integer Class = Integer.parseInt(ClassNumbertf.getText());
+        String str = User.printAvailableSeats(Class);
+        SeatsAvailable.setText(str);
     }
     private void GoBackButtonActionPerformed(java.awt.event.ActionEvent evt){
         UserOptions userOptions = new UserOptions(activeUser);
