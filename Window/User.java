@@ -262,17 +262,20 @@ public class User implements Serializable
     }
     public static void updateSeats(){
         try{
-            FileWriter fw1 = new FileWriter(new File("storeSFC.txt"));
+            FileWriter fw1 = new FileWriter(new File("storeSeats.txt"));
             PrintWriter pw1 = new PrintWriter(fw1);
             
             for(char ch : seatsFirstClass)
-                {pw1.write(ch); pw1.flush();}
+                {System.out.print(ch); pw1.write(ch); pw1.flush();}
             pw1.println();
+            System.out.println();
+            
             for(char ch : seatsSecondClass)
-                {pw1.write(ch); pw1.flush();}
+                {System.out.print(ch); pw1.write(ch); pw1.flush();}
+            System.out.println();
             pw1.println();
             for(char ch : seatsThirdClass)
-                {pw1.write(ch); pw1.flush();}
+                {System.out.print(ch); pw1.write(ch); pw1.flush();}
             pw1.println();
         }catch(FileNotFoundException e){
             System.out.println(e);

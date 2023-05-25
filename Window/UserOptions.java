@@ -121,6 +121,8 @@ public class UserOptions extends javax.swing.JFrame {
     }  
     
     private void exitButtonActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        LoginApplication.updateUserFile();
+        User.updateSeats();
         System.exit(0);
     }                                        
     

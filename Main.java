@@ -35,12 +35,13 @@ public class Main extends JFrame
                 new LoginApplication().setVisible(true);
                 // System.out.println("***********************************************");
                 // LoginApplication.updateUserFile();
-                // User.updateSeats();
-
+                
             }
         });
         
-        LoginApplication.printAllUsers();
+        System.out.println("hi");
+        User.updateSeats();
+        // LoginApplication.printAllUsers();
         
     }
 
