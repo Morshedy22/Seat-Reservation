@@ -275,4 +275,30 @@ public class LoginApplication extends javax.swing.JFrame {
         
         return false;
     }
+    public static boolean updateFile()
+    {
+        try{
+            File file = new File("Window\\UsersData.txt");
+            FileOutputStream fos = new FileOutputStream(file);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+            for(User user : allUsers)
+            {
+                oos.writeObject(user);
+                oos.flush();
+            }
+            oos.close();
+            return true;
+        }
+        catch(FileNotFoundException e){ 
+            System.out.println(e);
+            return false;
+        }catch(IOException e){
+            System.out.println(e);
+            return false;
+        }
+        
+        
+    }
+
 }
