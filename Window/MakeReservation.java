@@ -1,6 +1,8 @@
 package Window;
 import java.util.StringTokenizer;
 
+import javax.swing.JOptionPane;
+
 public class MakeReservation extends javax.swing.JFrame {
     
     User activeUser;
@@ -130,11 +132,10 @@ public class MakeReservation extends javax.swing.JFrame {
     }// </editor-fold>                        
 
     private void ClassNumbertfActionPerformed(java.awt.event.ActionEvent evt) {                                            
-        // TODO add your handling code here:
+        
     }                                           
-    private void OkButtonActionPerformed(java.awt.event.ActionEvent evt)
-    {
-        // Integer Class = Integer.parseInt(ClassNumbertf.getText());
+    private void OkButtonActionPerformed(java.awt.event.ActionEvent evt){
+        Integer Class = Integer.parseInt(ClassNumbertf.getText());
         // User.resetTheatreReservations();
         // System.out.println(Class);
 
@@ -143,20 +144,22 @@ public class MakeReservation extends javax.swing.JFrame {
         // ;
 
         // System.out.println(User.printactiveUserentSeats(Class));
-        // SeatsAvailable.setText("User.printactiveUserentSeats(Class)");
+        String str = User.printAvailableSeats(Class);
+        SeatsAvailable.setText(str);
     }
-    private void MakeReservationButtonActionPerformed(java.awt.event.ActionEvent evt)
-    {
-        User.resetTheatreReservations();
+    private void MakeReservationButtonActionPerformed(java.awt.event.ActionEvent evt){
+        // User.resetTheatreReservations();
+        int initialAmount = activeUser.getTotalAmountPaid();
         StringTokenizer tokenizer = new StringTokenizer(IDsOfSeatstf.getText(), ",");
         while(tokenizer.hasMoreTokens())
         {
-            activeUser.ticketReservation(Integer.parseInt(tokenizer.nextToken()), 
+            activeUser.ticketReservation(Integer.parseInt(tokenizer.nextToken())-1, 
                                 Integer.parseInt(ClassNumbertf.getText()));
         }
+        JOptionPane.showMessageDialog(null, "This user should spend "+ 
+             (activeUser.getTotalAmountPaid() - initialAmount )+ "$");
     }
-    private void GoBackButtonActionPerformed(java.awt.event.ActionEvent evt)
-    {
+    private void GoBackButtonActionPerformed(java.awt.event.ActionEvent evt){
         UserOptions userOptions = new UserOptions(activeUser);
         setVisible(false);
         dispose();

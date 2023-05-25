@@ -87,14 +87,20 @@ public class TicketCancellation extends javax.swing.JFrame {
 
 
     private void jButton1ActionPerformed(ActionEvent evt) {                                         
-        
-        Integer Class = Integer.parseInt(jTextField1.getText());
+        try{
+        int Class = Integer.parseInt(jTextField1.getText());
         StringTokenizer tokenizer = new StringTokenizer(jTextField2.getText(), ",");
-        while(tokenizer.hasMoreTokens())
-        {
+        int initialAmount = activeUser.getTotalAmountPaid();
+        do{
             System.out.println(Integer.parseInt(tokenizer.nextToken()));
-            activeUser.ticketCancellation(Integer.parseInt(tokenizer.nextToken()), Class);
+            activeUser.ticketCancellation(Integer.parseInt(tokenizer.nextToken())-1, Class);
         }
+        while(tokenizer.hasMoreTokens());
+        JOptionPane.showMessageDialog(null, "This user has saved "+ 
+             (initialAmount - activeUser.getTotalAmountPaid())+ "$s");
+    }
+    catch(Exception e)
+       { System.out.print(e);}
     }                                                
     private void jButton2ActionPerformed(ActionEvent evt) {                                         
         UserOptions userOptions = new UserOptions(activeUser);

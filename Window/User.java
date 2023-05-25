@@ -2,7 +2,7 @@ package Window;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-class User implements Serializable
+public class User implements Serializable
 {
     private String name;
     private String passcode;
@@ -121,7 +121,7 @@ class User implements Serializable
             }
             if(flag == 1)
             {
-                // seatsFirstClass[idx] = 'O';
+                seatsFirstClass[idx] = 'O';
                 reservedSeatsInFirstClass.remove(indexToBeRemoved);
                 totalAmountPaid-=50;
             }
@@ -144,7 +144,7 @@ class User implements Serializable
             }
             if(flag == 1)
             {
-                // seatsSecondClass[idx] = 'O';
+                seatsSecondClass[idx] = 'O';
                 reservedSeatsInSecondClass.remove(indexToBeRemoved);
                 totalAmountPaid-=15;
             }
@@ -167,7 +167,7 @@ class User implements Serializable
             }
             if(flag == 1)
             {
-            //   seatsThirdClass[idx] = 'O';
+              seatsThirdClass[idx] = 'O';
               reservedSeatsInThirdClass.remove(indexToBeRemoved);
               totalAmountPaid -= 10;
             }
@@ -187,6 +187,60 @@ class User implements Serializable
             seatsSecondClass[i] = 'O';
         for(int i = 0; i < 50; i++)
             seatsThirdClass[i] = 'O';
+    }
+    public static String printAvailableSeats(int Class)
+    {
+        if (Class == 1)
+        {
+            String seats = printSeatsInFirstClass();
+            return seats;
+        }
+        else if(Class == 2)
+        {
+            String seats = printSeatsInSecondClass();
+            return seats;
+        }
+        else if (Class == 3)
+        {
+            String seats =  printSeatsInThirdClass();
+            return seats;
+        }
+        else{
+            return "Please write a valid number";
+        }
+    }
+    public static String printSeatsInFirstClass()
+    {
+        String seats = "";
+        for(int i = 0; i < 25; i++)
+        {
+            seats+= (i+1) + "-" + seatsFirstClass[i] + " ";
+            if (i % 5 == 0 && i!=0)
+                seats+="\n";
+        }
+        return seats;
+    }
+    public static String printSeatsInSecondClass()
+    {
+        String seats = "";
+        for(int i = 0; i < 45; i++)
+        {
+            seats+= (i+1) + "-" + seatsSecondClass[i]+ " ";
+            if (i % 5 == 0 && i!=0)
+                seats+="\n";
+        }
+        return seats;
+    }
+    public static String printSeatsInThirdClass()
+    {
+        String seats = "";
+        for(int i = 0; i < 55; i++)
+        {
+            seats+= (i+1) + "-" + seatsThirdClass[i]+ " ";
+            if (i % 5 == 0 && i!=0)
+                seats+="\n";
+        }
+        return seats;
     }
     @Override
     public String toString() {
