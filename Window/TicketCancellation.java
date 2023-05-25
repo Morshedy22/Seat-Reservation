@@ -1,6 +1,9 @@
 package Window;
 import java.awt.event.*;
-import javax.swing.*; 
+
+import javax.swing.*;
+
+import java.util.NoSuchElementException;
 import java.util.StringTokenizer;  
 
 public class TicketCancellation extends javax.swing.JFrame {
@@ -86,21 +89,22 @@ public class TicketCancellation extends javax.swing.JFrame {
     }                       
 
 
-    private void jButton1ActionPerformed(ActionEvent evt) {                                         
+    private void jButton1ActionPerformed(ActionEvent evt) {
         try{
-        int Class = Integer.parseInt(jTextField1.getText());
-        StringTokenizer tokenizer = new StringTokenizer(jTextField2.getText(), ",");
-        int initialAmount = activeUser.getTotalAmountPaid();
-        do{
-            System.out.println(Integer.parseInt(tokenizer.nextToken()));
-            activeUser.ticketCancellation(Integer.parseInt(tokenizer.nextToken())-1, Class);
-        }
-        while(tokenizer.hasMoreTokens());
-        JOptionPane.showMessageDialog(null, "This user has saved "+ 
-             (initialAmount - activeUser.getTotalAmountPaid())+ "$s");
-    }
-    catch(Exception e)
-       { System.out.print(e);}
+            int Class = Integer.parseInt(jTextField1.getText());
+            StringTokenizer tokenizer = new StringTokenizer(jTextField2.getText(), ",");
+
+            int initialAmount = activeUser.getTotalAmountPaid();
+            do{
+                // System.out.println(Integer.parseInt(tokenizer.nextToken()));
+                activeUser.ticketCancellation((Integer.parseInt(tokenizer.nextToken())-1), Class);
+            }
+            while(tokenizer.hasMoreTokens());
+
+            JOptionPane.showMessageDialog(null, "This user has saved "+ 
+            (initialAmount - activeUser.getTotalAmountPaid())+ "$s");
+        }catch(Exception e)
+            {System.out.print(e);}
     }                                                
     private void jButton2ActionPerformed(ActionEvent evt) {                                         
         UserOptions userOptions = new UserOptions(activeUser);

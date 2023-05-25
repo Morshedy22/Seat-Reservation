@@ -6,8 +6,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Scanner;
-
 
 public class User implements Serializable
 {
@@ -112,7 +110,7 @@ public class User implements Serializable
         }
 
     }
-    public void ticketCancellation(int idx, int Class){
+    public void ticketCancellation(Integer idx, Integer Class){
         if (Class == 1)
         {
             int flag = 0;

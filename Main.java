@@ -33,14 +33,15 @@ public class Main extends JFrame
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new LoginApplication().setVisible(true);
+                // System.out.println("***********************************************");
+                // LoginApplication.updateUserFile();
+                // User.updateSeats();
+
             }
         });
-
-        // System.out.println("***********************************************");
-        LoginApplication.updateUserFile();
-        User.updateSeats();
-
+        
         LoginApplication.printAllUsers();
+        
     }
 
     
